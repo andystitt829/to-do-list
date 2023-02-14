@@ -2,36 +2,61 @@ import React from 'react';
 import {
   ChakraProvider,
   Box,
-  Text,
-  Link,
+  Heading,
+  FormControl,
+  FormLabel,
   VStack,
-  Code,
+  HStack,
+  Text,
+  IconButton,
+  StackDivider,
   Grid,
   theme,
+  Input,
+  Button,
 } from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+import { DeleteIcon } from '@chakra-ui/icons';
 
 function App() {
+  const todos = [
+    {
+      id: 1,
+      body: 'Get bread',
+    },
+    {
+      id: 2,
+      body: 'Get butter',
+    },
+  ];
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
         <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
           <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
+            <Box as="header">
+              <Heading>
+                To-Do List
+              </Heading>
+            </Box>
+            <Box as="main" textAlign="left">
+              <FormControl>
+                <FormLabel>Add a new item</FormLabel>
+                <Input />
+              </FormControl>
+              <Button>
+                Submit
+              </Button>
+              <VStack alignItems="left" divider={<StackDivider />} borderColor='gray.100'>
+              {todos.map((todo) => (
+                <HStack key={todo.id}>
+                  <Text>{todo.body}</Text>
+                  <IconButton
+                    icon={<DeleteIcon />}
+                  />
+                </HStack>
+              ))}
+              </VStack>
+            </Box>
           </VStack>
         </Grid>
       </Box>
